@@ -1,5 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://github.com/BlueHamster530/BlueHamster530.github.io/blob/main/test.csv')
+    fetch('./test.csv')
         .then(response => response.text())
         .then(data => {
             const questions = parseCSV(data);
