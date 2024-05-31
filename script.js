@@ -1,15 +1,12 @@
-﻿function readCSV(event) {
-    const input = event.target;
-    if ('files' in input && input.files.length > 0) {
-        let reader = new FileReader();
-        reader.onload = function() {
-            const text = reader.result;
-            const data = parseCSV(text);
-            displaySurvey(data);
-        };
-        reader.readAsText(input.files[0], 'UTF-8');
-    }
-}
+﻿document.addEventListener('DOMContentLoaded', function() {
+    fetch('./test.csv')
+        .then(response => response.text())
+        .then(data => {
+            const questions = parseCSV(data);
+            displaySurvey(questions);
+        })
+        .catch(error => console.error('Error fetching the CSV file:', error));
+});
 
 function parseCSV(text) {
     const lines = text.split(/\r?\n/);
@@ -30,7 +27,7 @@ function displaySurvey(questions) {
                 <div class="question">
                     <p>${changedquestion}</p>
                     <div>
-                        ${[1,2,3,4,5,6,7].map(num => `
+                        ${[1, 2, 3, 4, 5, 6, 7].map(num => `
                         <label><input type="radio" name="question${index}" value="${num}"> ${num}</label>
                         `).join('')}
                     </div>
